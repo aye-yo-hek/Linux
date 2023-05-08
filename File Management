@@ -91,6 +91,14 @@ Gunzip- uncompress files
 gzcat - concatenates compressed files
 Zcat - concatenates compressed files
 
+Change Permission 
+chmod [ugoa][-+=][rwx] filename
+	ugoa - user,group,other, all
+	-+= - add, subtract or set permissions
+	rwx - read, write, execute 
+
+
+
 
 Edit Files with vi
   vi [file] - edit file 
