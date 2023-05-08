@@ -1,0 +1,239 @@
+TCP/IP 
+    Used for network communication
+    TCP - transmission control protocol
+    IP - internet protocol 
+    TCP - controls data exchange 
+    IP - sends data from one device to another 
+    Hosts 
+    Devices on a network that have an IP 
+    IP Networking
+    IP address
+    199.84.131.186
+    Subnet mask
+    255.255.255.0
+    Broadcast address
+    199.86.131.255
+    Octet,octet,octet,octet
+    Values from 0 - 255
+
+
+Network Address 
+  Host address
+  Each must be unique for proper routing 
+  Address classes 
+  Used to determine the network address and host address 
+ 
+            Classful Networks
+Class A
+Network Address 
+        1.0->127.0
+        Ex. 17.24.88.9
+Hosts allowed 16,777,216
+
+Class B
+Network Address 
+        128.0-> 191.255
+        Ex. 183.194.46.12
+Hosts Allowed 65,536
+
+Class C
+Network Address 
+        192.0.0 -> 233.255.255
+        Ex. 199.83.123.123
+Hosts Allowed 255
+
+
+Subnet Mask for Each Class 
+A
+  255.0.0.0
+B
+  255.255.0.0
+C
+  255.255.255.0
+
+The 255s are for the network address, the 0s are for host address 
+Broadcast Address 
+Turns the 0s in the subnet mask to 255 
+Class 
+Network
+Subnet Mask
+Broadcast 
+A
+17.0.0.0
+255.0.0.0
+17.255.255.255
+B
+183.194.0.0
+255.255.0.0
+183.194.255.255
+C
+199.83.131.0
+255.255.255.0
+199.83.131.255
+
+
+
+Classless Inter-Domain Routing = CIDR
+    IP - 121.67.198.94
+    Class A network - 121.0.0.0
+    Class A subnet - 255.0.0.0
+    Class A broadcast - 121.255.255.255
+    IP - 121.67.198.94, if you specify subnet - 255.255.255.0
+    CIDR network - 121.67.198.0 
+    CIDR subnet - 255.255.255.0 (will stay the same)
+    CIDR broadcast - 121.67.198.255(convert o to 255)
+    Reserved Private Address Space 
+
+Format: 
+Class
+Range
+Private Address Space 
+A
+1.0.0.0 -> 127.255.255.255
+10.0.0.0 -> 10.255.255.255
+B
+128.0.0.0 -> 191.255.255.255
+172.16.0.0  -> 172.31.255.255
+C
+192.0.0.0 -> 233.255.255.255
+192.168.0.0 ->192.168.255.255
+
+
+
+Networking 
+    Determine your IP 
+    Ip addr 
+    Ip a 
+    ip address show or ip a s 
+    Ifconfig
+    Hostname 
+    Human-readable name for an IP 
+    Webprod01 = 10.109.155.174 
+    DNS(Domain Name System) Hostnames
+    FQDN = Fully Qualified domain name 
+    webprod01.mycompany.com 
+    TLD(top level domain)
+    .com, .net, .org
+    Domains 
+    below(to the left of) TLD 
+    Sub-domain
+    Below (to the left of) the domain
+    Webprod01.ny.us.mycompany.com 
+    Display Hostname
+    Use the following commands 
+    Hostname 
+    uname -n -> same thing as hostname 
+    hostname -f ->show FQDN
+
+
+
+Setting the Hostname
+  sudo Hostname newhostname
+  You can also echo “newhostname’ > /etc/hostname
+  Set Permanent Hostname 
+      sudo hostnamectl set-hostname new_name
+       Then reboot and see if changes were saved 
+
+Change computer name
+Go to settings > sharing > edit name 
+
+
+Resolving DNS Names - use both for IP and domain names 
+    Host
+    Dig
+    The /etc/hosts file 
+    Format:
+    IP FQDN alias(es)
+    10.11.12.13 web02.mycorp.com web02 
+    Now you can refer to the host by name 
+    Web02.mycorp.com or web02
+    /etc/hosts is local to your linux system. It does not propagate to the rest of the network. 
+    /etc/nsswitch.conf
+    NSS = Name Service Switch 
+    configuration file controls the order in which lookups are performed
+    Controls the search order for resolutions 
+    hosts : files dns
+    hosts : files nis dns 
+Network Ports
+  When a service starts it binds itself to a port 
+  Ports 1-1023 are well known ports 
+      22- SSH
+      25 - SMTP
+      80 - Http
+      143 - IMAP
+      389 - LDAP
+      443 - https 
+      /etc/services 
+
+DHCP
+    Dynamic Host Configuration protocol 
+    DHCP servers assign IP address to DHCP clients 
+    IP address
+    Netmask 
+    Gateway
+    DNS servers 
+    Each IP is “leased” from the pool of IP addresses the DHCP server manages 
+    The lease expiration is time configurable on the DHCP server (1 day,wk,etc) 
+    The client must renew the lease if it wants to keep using the IP address. If no renewal is received, the IP is available to the other DHCP 
+    Configuring a DHCP Client - RHEL 
+    ifconfig -a or ip link
+
+Configuring a DHCP CLient - Ubuntu 
+    /etc/network/interfaces 
+    Auto eth0
+    Iface eth0 inet dhcp 
+    Assigning a statil IP - RHEL
+    /etc/sysconfig/network-scripts/ifcfg-eth0
+
+Assign static IP - Ubuntu 
+    /etc/network/interfaces 
+    Auto eth0
+    Iface eth0 inet static(then provide the following:) 
+    Address 
+    Netmask 
+    Gateway 
+Manually Assigning an IP address
+    Format - ip address
+    Ip address add IP[/Netmask] dev NETWORK_DEVICE
+    Ip address add 10.20.12.13 dev eth0
+    Ip address add 10.2.3.4/255.255.255.0 dev eth0
+    Ip link set eth0 up
+    Format - ifconfig 
+    Ifconfig Network_Device addr netmask Subnet_mask
+    Ifconfig eth0 12.11.11.23
+    ifconfig eth0 12.12.12.12 netmask 255.2255.255.0
+    ifconfig eth0 up 
+    ifup/ifdown
+    Can be used inst4ead of ifconfig/ip
+    Distribution dependent 
+    Uses configuration files 
+    Ex
+    ifup eth0
+    Ifup enp5s2 
+    Ifdown eth0
+    Ifdown enp5s2
+
+
+Network Troubleshooting 
+      Test connectivity 
+      ping HOST
+      Ping -c COUNT HOST
+      Ping -c 3 google.com 
+      Examine the route 
+      traceroute -n google.com 
+      Tracepath -n google.com
+      Netstat - collect a lot of network stats 
+      -n - display numerical addresses and ports 
+      -i - displays a list of network interfaces 
+      -r displays the route table - netstat -rn
+      -p display the PID and program used (use sudo when using -p)
+      -l display listening sockets - netstat -nlp
+      -t - limit the output to TCP - netstat -ntlp
+      -u - limit the output to UDP - netstat -nulp 
+      tcpdump - packet sniffing wit htcpdump
+      -n display numerical addresses and ports 
+      -A display ASCII(text) output 
+      -v - verbose mode - produce more output 
+      -vvv - even more verbose output 
+            You can also use telnet to connect to websites to verify connection
+            Telnet HOST_OR_IP PORT_NUMBER
