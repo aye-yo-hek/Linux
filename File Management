@@ -34,61 +34,9 @@ chgrp - change group
 	Chgrp [name of group] filename
 umask- sets the file creation mask to mode, if given 
 	Use -S to for symbolic notation 
-
-Find and Locate - find files/directories 
-find - Locate [locate is faster but it is not updated real time]
-		If you just made a new file you will not be able to see it rn use find instead
-	-name pattern - find files and directories that match pattern	
-	find /usr/bin -name *l - find anything in this directory that ends with l
-	-iname pattern - like -name but ignores case 
-	-ls - performs and ls on each on the found items 
-	-mtime days - finds files that are days old 
-		find /usr/sbin -mtime +10 -mtime -90 -ls
-			Directory ur in - older than 10 days and as old as 90^
-	-size num - finds files that are newer than file
-find /usr -size +1M -  find files that are bigger than a megabyte  
-	-exec command {} \; - run command again all files that are found 
-  
-  
-Sorting data
-sort file - sort text in file. 
-    -KF - sort by key. F is the field number(and: two) - 2==two
-    -r - sort in reverse order 
-    -u sort unique (removes duplicate lines)
-
-
-Wildcards 
-* - matches zero or more characters
-? - matches exactly one character 
-[] - a character class
-Matches any of the characters in the bracket
-    Ca[nt]
-    Can
-    Cat 
-    Candy 
-    Catch 
-[!] - matches any of the characters not included between the brackets - 
-Exclude what ever is in the bracket 
-  Ranges -
-  [a-g]*
-    Match all files that start with a-g
-  [3-6]*
-    Match all files that start from 3-6
-
-Named Characters
-    [[:alpha:]]
-    [[:alnum:]]
-    [[:digit:]]
-    [[:lower:]]
-    [[:space:]]
-    [[:upper:]]
-    \ - escape character 
-Match all files that end with a question mark
-    *\?
-       Done?
        
        
-   Input/Output 
+Input/Output 
 > redirects standard output to a file, overwrites - truncating- existing contents 
 >> Redirects standard output to a file. Appends to any existing content 
 < redirects input from a file to a command 
@@ -109,12 +57,7 @@ Match all files that end with a question mark
       :qa - quit all
       :qa! - force quit
       
- grep - display lines matching a pattern 
-grep pattern file
--i - perform a search, ignoring case
--c - count the number of occurrences in a file
--n - precede output with line numbers
--v - invert match. Print lines that don’t match   
+
 
 file file_name - display the file type
 Strings - display printable strings
@@ -129,41 +72,6 @@ cut [file] - cut out selected portions of file. If file is omitted, use standard
 Tr - replace character - not permanent change - only for the output 
 tr ‘old char’ ‘new char.’
 Column -t  == table format 
-
-
-Listing processes 
-ps - display process status
-	-e - everything, a’’ processes 
-	-f - full format listing 
-	- u username - display usernames’ princesses 
-	-p pid - display info for PID
-	-ef - display all processes full
-	-eH - display a process tree
-Ps -e --forest - display a process tree 
-Ps -u username - display users’ processes 
-Pstree - display processes in a tree format
-top - interactive processes viewer 
-htop - interactive process viewer 
-
-
-Background and Foreground Processes 
-	Command & - start command in background 
-	Ctrl-c - kill the foreground process
-	Ctrl+z - suspend the foreground process
-	bg [%num] - background a suspended process
-	fg [%num] - foreground a background process 
-	Kill - kill a process by job number or PID
-	jobs [%num] - list jobs
-
-Killing Processes
-	Ctrl+c - kill the foreground proc.
-	Kill [-sig] pid - send a signal to a process 
-	Kill -l - Display list of signals 
-	Kill 123
-	KILL -15 123
-	Kill -TERM[or use -9] 123 - term = terminate
-
-
 
 
 
