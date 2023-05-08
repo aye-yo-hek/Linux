@@ -1,0 +1,244 @@
+Disk Usage
+  du - estimates file usage 
+    -k - displayed in KB
+    -h - displayed in readable format 
+MBR - Master Boot Record 
+  Can only address 2 TB of disk space 
+  Being phased out by GPT
+GPT = GUID Partition Table 
+  4 primary partitions 
+  Extended partitions allow to create logical partitions 
+  GUID - Global unique Identifier 
+  Replacing the MBR partitioning scheme 
+  Part of the Uefi 
+  UEFI - Unified extensible firmware interface 
+  UEFI is replacing BIOS
+
+ 
+Mount Points 
+  A directory used to access the data on a partition 
+  / is always a mount point 
+  /home
+  /home/jason is on the partition mounted on /home
+  /export/home
+  /export/home/jason 
+
+
+
+Mounting over existing Data 
+  Mkdir /home/sarah 
+  mount /dev/sdb2 /home
+  You will not be able to see /home/sarah now
+  umount /home
+  You can now see /home/sarah again
+
+fdisk 
+  Alternatives - gdisk, parted
+  Earlier versions of fdisk did not support GPT 
+  Fdisk /path/to/device 
+
+fdisk -l | less - will show list of disk partitions
+
+Create a new disk partition - create 3 -> 1 uses 1 GB, 2nd will have 20GB and the 3rd will have the rest  
+    Fdisk /dev/sda
+    N
+    Click enter 
+    Click enter 
+    For Last sector ** line enter +1G - 
+    Change partition type  use t 
+    List partitions use l
+    Want linux swap type in 82 
+    Next partition 
+    Accept defaults add +20G
+    For the last partition click enter all the way for the remaining storage 
+    View current partition table type p 
+
+
+Create GPT Partition 
+fdisk /dev/sdc 
+  g 
+  n
+  Enter
+  p
+  w
+
+
+File Systems 
+  ext = extended file system 
+  Ext2,ext3,ext4 are later releases 
+  Other File systems
+  ReiserFS
+  JFS
+  XFS
+  ZFS
+  Btrfs
+
+Mkfs
+  Mkfs -t TYPE(file system type) DEVICE(path)
+  mkfs -t ext3 /dev/sdb2
+
+
+
+Mounting with mount
+  Mount DEVICE MOUNT_POINT
+  Mount /dev/sdb3 /opt
+  Show list of mounted devices 
+  Df -h
+  To make a mount permanent you will need to add it to /etc/fstab file 
+
+Unmount with the umount command
+  umount device_or_mount_point
+  umount /opt
+  umount /dev/sdb3
+
+
+Preparing swap space
+  Mkswap /dev/sdb1
+  swapon /dev/sdb1
+  Swapon -s (use this command to enable mkswap)
+
+/etc/fstab - the file system table
+  Controls what devices get mounted and where on boot
+  Each entry is made up of 6 fields:
+    Device or File System 
+    Mount point 
+    File system type 
+    Mount options 
+    Dump 
+    Fsck order 
+
+
+View Labels and UUIDs 
+  lsblk -f
+  blkid - for only UUIDs
+
+
+Labeling a file system
+  e2label 
+
+LVM - Logical Volume Manager 
+    Flexible Capacity 
+    You can create file systems that extend across multiple storage devices 
+    /var = 150GB
+    You can aggregate multiple storage devices into a single logical volume 
+    Easily Resize storage while online 
+    Expand or shrink file systems in real time while the data remains online and fully accessible 
+    Online Data Relocation
+    Easily migrate data from one storage device to another while online 
+    Conveninent Device Naming 
+    You can use human readable device names of your choosing 
+    /dev/vg_database/lv_db_logs vs /devsdb3
+Disk Striping
+    INCREASE throughput by allowing your system to read data in parallel 
+    Data Redundancy / Data Mirroring 
+    Increase fault tolerance and reliability by having more than one copy of your data 
+    Snapshots 
+    Point in time snapshots - for consistent back ups
+    Layers 
+    File systems 		/var		/opt/app
+    Logical Volums - LV
+    Volume Group - VG
+    Physical Volumes - PV
+    Storage Devices 
+
+Logical Volume Creation Process 
+    Create on or more physical volumes 
+    Create a volume group from those one or more physical volumes 
+    Create one or more logical volumes from the volume group 
+    How to check data/storage usage in Linux
+    Switch to root user -> su -
+    Check LVM storages -> lvmdiskscan
+    Lsblk - display more information about the disks
+    lsblk -p displays the path 
+    df -h - disk space usage 
+    Fdisk -l -> which data is attached 
+
+THE FOLLOWING ARE ALL NEEDED TO WORK PROPERLY 
+      Create PV 
+      pvcreate /path/to 
+      pvcreate /dev/sdb
+      pvs - displays  pvs 
+      Create VG
+      vgcreate vg_app /dev/sdb
+      vgs
+      Create LV
+      lvcreate -L(define size) 20G -n(name) lv_data vg_app(VG storage)
+      lv or lvdisplay
+      Create Filesystem 
+      Mkfs -t ext4 /dev/vg_app/lv_data
+      Mount point 
+      Mkdir /data
+      Mount 
+      Mount /dev…/lv_data /data
+      See results 
+      df -h /data
+      Want it mounted in boot time?
+      vi /etc/ftab
+      Add path, directory, file type, defaults 0 0 
+      Ex. /dev/vg_app/lv_app /app ext4 defaults 0 0
+      Mount /app
+
+
+Logical Volumes are divided into 4 
+    Look at the lvdisplay 
+    If you run into an issue From this command 
+    Lvcreate -L 25G -n lv_logs vg_app
+    Use this to avoid issue - moving VG to LV
+    Lvcreate -l 100%FREE -n lv_logs vg_app
+    Extended VG
+    lvmdiskscan - see which disk is available 
+    Pvcreate /dev/sdc
+    vgextend vg_app /dev/sdc -Now vg_app has an extra 50GB 
+    Lvextend -L +5G -r(resize) /dev/vg_app/lv_data
+    If you forget to add -r 
+    Resize2fs /dev/vg_app/lv_data
+    Want to make sure files system matches lvs size
+
+Mirroring Logical Volumes
+    lvmdiskscan - see whats available
+    pvcreate /dev/sdd /dev/sde - doing multiple PVs
+    Vgcreate vg_safe /dev/sdd /dev/sde 
+    Lvcreate -m(mirror on # of disk) 1 -L 5G -n lv_secrets vg_safe 
+    lvs -a to see what kind of raid the LVs are using
+    pvdisplay -m 
+    Make filesystem
+    Mkfs -t ext4 /dev/vg_safe/lv_secrets 
+    Mkdir /secrets 
+    Mount /dev/vg_safe/lv_secrets/secrets 
+
+
+Removing Logical Volumes, PVs, VGs
+    First unmount filesystem 
+    umount /secrets 
+    lvremove /dev/vg_safe/lv_secrets 
+    Check vgs 
+    Vgreduce vg_safe /dev/sde
+    Pvremove /dev/sde
+    Vgremove vg_safe
+    Now that the VG is no longer associated with PV you can use the PVremove option to free up that disk space 
+    Pvremove /dev/sdd
+    Migrate Data from One storage device to another 
+    pvcreate “/dev/sde”
+    vgextend vg_app /dev/sde
+    Pvmove /dev/sdb(host) /dev/sde(destination) 
+
+
+LVM Summary - logical Volume manager -> PVs, LVs, VGs 
+    Creating LVs
+    pvcreate /dev/sdb
+    vgcreate vg_name /dev/sdb 
+    Lvcreate -L 100G -n lv_name vg_name
+    Mkfs -t ext4 /dev/vg_name/lv_name
+    make directory for filesystem 
+    Mount filesystem to new directory 
+    Extend LVs 
+    Lvextend -L +10G -r /dev/vg_name/lv_name
+    pvcreate /dev/sdc
+    vgextend vg_name /dev/sdc 
+    Mirrored LVs 
+    Lvcreate -m 1 -L 100G -n lv_name vg_name
+    Remove LVs
+    Lvremove /dev/vg_name/lv_name
+    vgreduce vg_name /dev/sdb
+    vgremove vg_name 
+    pvremove /dev/sdb
