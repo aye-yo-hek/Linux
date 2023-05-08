@@ -1,0 +1,113 @@
+Create Files 
+  > fileName – Create an empty file.
+  touch fileName – Create an empty file.
+  cat > filename – To create a new text file under Ubuntu, 
+    use the cat command followed by the redirection symbol ( > ) 
+
+Delete files 
+  rm file - remove file 
+  rm -r dir - remove the directory and its contents recursively 
+  rm -f file - force removal and never prompt for confirmation 
+
+Copying files 
+  cp source_file destination_file 
+    Copy source_file to destination file
+  cp src_file1 [source file n] dest_dir 
+    Copy source_files to destination_directory 
+  cp -i  
+    Run in interactive mode 
+  cp -r source_directotry new_directory  
+    Copy src_directory recursively to destination
+ 
+ You can use diff to determine any differences between them 
+    Diff file1 file2
+
+Moving and Renaming files 
+mv - move or rename files and directories
+mv FILE destination
+mv -i source destination 
+
+
+Creating archives 
+tar [-] c|x|t f tarfile [pattern] - create, extract or list contents of tar archive using pattern if supplied 
+  C - create a tar archive 
+  X extracts files from the archive 
+  T - display the table of contents list
+  V - be verbose 
+  Z - use compression 
+  F file - use this file 
+Ex- tar cf tps.tar directory-name
+  C - create tar | file - use the tps.tar file 
+  tar xvf /path/file.at - list the files it is extracting 
+gzip - compress file
+Gunzip- uncompress files 
+gzcat - concatenates compressed files
+Zcat - concatenates compressed files
+
+
+Edit Files with vi
+  vi [file] - edit file 
+  vim [file} -same as vi but more features 
+  view [file] - starts vim in read only mode 
+  Command and Navigation keys 
+    k - up one line 
+    j - down one line 
+    h - left one character
+    l - right one character  
+    w - right one word - goes to the first letter of the next word
+    b - left one word - goes to the first letter of the word behind 
+    ^ - go to the beginning of the line 
+    $ Go to the end of the line 
+    Vi Insert Mode 
+      i - inset at the cursor position \
+      I - insert at the beginning of the line 
+      a - append after the cursor position
+      A - append at the end of the line 
+    Vi Line Mode 
+      :w writes - saves the file 
+      : w! - forces the file to be saved 
+      :q - quit 
+      :q! - quit without saving changes 
+      :wq! - write and quit 
+      :x - same as :qw - save an quit 
+      :n - positions the cursor at line n 
+      :$ - positions the cursor on the last line 
+      :set nu - turn on line numberiing 
+      :set nonu - turn off line numbering 
+      :help 
+    Vi Modes 
+      Mode		key
+      Command 	Esc
+      Insert		iIaA
+      Line		:
+    Vi repeating commands 
+      5k -  move up a line 5 times 
+      80i <text><esc> = Insert text 80 times - add shift+enter before pressing esc button for a new line each time 
+      80i_<ESC>- insert 80 “_” characters 
+    Vi - Deleting text
+      x -delete a character 
+      dw - delete a word 
+      dd - delete a line 
+      D - delete from the current position 
+    Vi - changing Changing Text 	
+      r - replace the current character 
+      cw - change the current word 
+      cc - change the current line 
+      c$ - change the text from the current position 
+      C - same as c$
+      ~ - reverses the case of a character 
+    Vi - copying and pasting 
+      yy - yank/copy the current line 
+      y<postion> - yank the <position>
+      p - paste the most recent deleted or yanked text 
+      Vi - Undo/Redo
+      u - undo 
+      ctrl+R - redo 
+     Vi searching
+      /<pattern> start a forward search
+      For the commands below low use n to go to the next one or N to go back to the previous 
+      ?<pattern> start a reverse search 
+      For the commands below low use N  to go to the next one or n to go back to the previous 
+
+
+
