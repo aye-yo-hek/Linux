@@ -1,0 +1,45 @@
+Customize shell prompt 
+Bash, ksh and sh use $PS1
+Csh, tcsh and zsh use $prompt
+
+PS1
+\d - date in Weekday Month Date format
+\h - hostname up to the first period 
+\H - hostname
+\n - new line 
+\t = current time in 24hr HH:MM:SS
+\T - current time in 12hr 
+\@ - current ime in 12 hr am/pm
+\A - current time in 24Hr 
+\u - username of the current user
+\w - current working directory 
+\W - Basename of the current wDirectory
+\$ is the effective UID is 0, a#, otherwise a $
+
+Ex. echo PS1=”\T \u@\h \w\$ ”’ >> ~/.bash.profile
+** for permanent changes you must add it to the bash_profile file
+	Vi ~/.bash_profile
+
+
+Alias - create a shortcut or nickname for your favorite command 
+Alias new_name=command
+unalias name - remove the name alias 
+Unalias -a - remove all aliases 
+** for permanent changes you must add it to the bash_profile file
+
+Environment Variable 
+name/value pairs
+
+View environment details
+  Printenv
+
+Creating Environment Variables
+export VAR=”value”
+Ex
+  Export EDITOR=”vi”
+  export TZ=”US/Pacific”
+Remove Environment Variable
+  Unset VAR
+  Ex	
+    Unset TZ
+  ** for permanent changes you must add it to the .bash_profile file
