@@ -41,5 +41,14 @@ Man [command] = display manual for command
   You can also use the --help or -h for more help on the command 
 
 
+su [username] - change user ID or become superuser
+- a hyphen is used to provide an environment similar to what the user would expect had the user logged in directly 
+-c command - specify a command to be executed 
+
+
+whoami - which user you are
+visudo - edit the etc/sudoers file
+history - displays the shell history 
+		
 
 
