@@ -1,0 +1,27 @@
+Cron 
+Cron - A time based job scheduling service 
+Crontab - A program to create, read, update and delete your job schedules 
+Use cron to schedule and automate tasks
+Crontab Format 
+* * * * * command
+Minute - hour-etc
+Ex. #Run every Monday at 7:00
+0 7 * * 1 /opt/sales/bin/weekly-report 
+0 - Minute (0-59)
+7 - Hour (0-23)
+* - Day of Month(1-31) 
+* - Month of the year (1-12)
+1 - Day of the week(0-6)
+Ex. run every 15 min 
+0,15,30,45 * * * * /opt/acme/bin/15-min-check
+*/15 ….
+Crontab Shortcuts 
+annually/Yearly - 0011*
+Monthly - 001**
+Weekly - 00**0
+Daily/midnight -  00***
+Hourly - 0****
+Crontab file - install a new crontab from file
+Crontab -l - list your cron jobs
+Crontab -e - edit your cron jobs
+Crontab -r - remove all of your cron jobs
