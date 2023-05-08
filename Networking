@@ -237,3 +237,20 @@ Network Troubleshooting
       -vvv - even more verbose output 
             You can also use telnet to connect to websites to verify connection
             Telnet HOST_OR_IP PORT_NUMBER
+            
+            
+            
+scp/sftp command line utilities
+    scp source destination 
+          copy source to destination
+    sftp host 
+            Start a secure file transfer session with host
+    sftp jason@host
+
+put filename - puts the file you want into the server 
+To remove use rm command
+quit 
+Ftp command line utility
+    Ftp host 
+        Start a file transfer session with host
+
