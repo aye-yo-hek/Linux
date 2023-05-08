@@ -1,1 +1,45 @@
+pwd = shows the directory path  of where you are 
+
+List -l  = list all the files in the directory
+	Use -F to reveal file type 
+		/ = directory 
+		@ - link 
+		*executable
+			If you see @ use ls -lF it will direct you to the pwd
+	-t - sorted by time
+	-r reverse order 
+	-latr - long listing incluyding all files reverse order
+	-d - list directory name only 
+	--color - color output
+  -R - lists files recursively 
+
+View Files 
+Tree  shows directory and files visualy connected like a tree 
+Tree -d - list directories  
+Tree -C - colorize output 
+	
+		
+cd [dir] = changes directory 
+
+clear = clear screen
+cat - show files content - read what’s inside the file/directory
+more filename - browse through a text file
+less file - more features than more 
+head file - output the beginning/top of the file [displays 10 by default]
+tail filename - output end/tail of the file 
+	tail -f file - follow the file in real time - like watching an active log print- 
+
+
+passwd - changes the current user password
+
+Man [command] = display manual for command
+	Space - display next page
+	Enter - page moves down 
+	g - to top of the page 
+	G - bottom of the page 
+	Q - quit
+  You can also use the --help or -h for more help on the command 
+
+
+
 
