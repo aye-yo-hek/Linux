@@ -131,6 +131,41 @@ tr ‘old char’ ‘new char.’
 Column -t  == table format 
 
 
+Listing processes 
+ps - display process status
+	-e - everything, a’’ processes 
+	-f - full format listing 
+	- u username - display usernames’ princesses 
+	-p pid - display info for PID
+	-ef - display all processes full
+	-eH - display a process tree
+Ps -e --forest - display a process tree 
+Ps -u username - display users’ processes 
+Pstree - display processes in a tree format
+top - interactive processes viewer 
+htop - interactive process viewer 
+
+
+Background and Foreground Processes 
+	Command & - start command in background 
+	Ctrl-c - kill the foreground process
+	Ctrl+z - suspend the foreground process
+	bg [%num] - background a suspended process
+	fg [%num] - foreground a background process 
+	Kill - kill a process by job number or PID
+	jobs [%num] - list jobs
+
+Killing Processes
+	Ctrl+c - kill the foreground proc.
+	Kill [-sig] pid - send a signal to a process 
+	Kill -l - Display list of signals 
+	Kill 123
+	KILL -15 123
+	Kill -TERM[or use -9] 123 - term = terminate
+
+
+
+
 
 Creating archives 
 tar [-] c|x|t f tarfile [pattern] - create, extract or list contents of tar archive using pattern if supplied 
