@@ -1,1 +1,105 @@
+Manage Users and Groups:
+  /etc/passwd
+  root:x:0:0:root:/root:/bin/bash
+  Format:
+    username:password:UID:GID:comments:home_dir:shell
+  Custom for usernames to be less than 8 characters
+  Usernames are case sensitive
+  Passwords are stored in the /etc/shadow - encrypted passwords stored here
+  /etc/shadow is only readable by root
+  UIDs	
+    The root account is always UID 0
+    UID are unique #s
+    System accounts have UIDs <1000
+    Configured in /etc/login.defs 
+    Comment field(AKA GECOS) -
+    users’ name, account associated with and maybe a phone#
+    Shell 
+    Executed when a user logs in
+    Located in /etc/shells
+    To prevent interactive use of an account use /usr/sbin/nologin or /bin/false 
+GID
+  Listed in /etc/passwd 
+  New files belong to a users default group
+  Users can switch group by using the newgrp command 
+  etc/shadow
+    Username:password encrypted:#ofdayspasswordwaschanged: # of days before password can change: 
+    if its 99999 = doesnot need to change their password
 
+
+useradd 
+  Useradd [options] username
+    -c “comment” - comments for the account 
+    -m - create the home directory 
+    -g GROUP specify default group
+    -G GROUP1,Group2 - additional groups 
+    -r -create a system account 
+    -d /home/directory -specify the home directory 
+    -u - to specify the UID
+    When -m is used == /etc/skel 
+        This directory provides the following shell files	
+        .profile, .bashrc, etc
+        -s /shell/path 
+    Ex. 
+      useradd -c “Hector Hernandez” -m -s /bin/bash hector
+       Username = hector 
+       Comment - full name 
+       Shell is bash
+    
+    Create a password for user 
+    passwd username
+    Account information for new user
+        Tail -1 /etc/passwd
+    Note: Users can also be used for a system or application account
+   
+ Delete User   
+   userdel [-r] username
+
+Usermod
+    usermod [options] username
+    -c “comment”
+    -g Group
+    -G Group1,Group2 - additional groups 
+    -s /shell/path
+
+Group Details
+  Stored in the /etc/group
+  Format -> group.name:passwd:GID:accnt1,accountN
+
+Which group does the user belong to?
+Use the groups command  
+  groups [username]
+
+Create a group
+  groupadd [option] groupname
+  -g # - specify GID number
+
+Delete Group 
+  groupdel group_name
+
+Modify details in a existing group
+  groupmod [options] group_name
+  -g GID - change group ID to GID
+  -n Group - rename 
+
+
+
+Summary:
+  Account info is stored in 
+   /etc/passwd
+   /etc/shadow
+  Account attributes
+   Username 
+    UID
+    GID
+    Comment 
+    Home Directory 
+    Shell
+  User
+    Useradd
+    Userdel
+    Usermod 
+  Groups
+   Groupadd
+   Grouddel
+   Groupmod 
